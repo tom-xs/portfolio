@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<style>
+  :root {
+    --fg: #1a1a1a;
+    --muted: #666;
+    --link: #0b3d91;
+    --rule: #c9c9c4;
+    --bg: #fdfdf8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: ui-monospace, "Cascadia Code", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 15px;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.5;
+  }
+  .page { max-width: 84ch; margin: 0 auto; padding: 2rem 2ch 6rem; }
+
+  /* ASCII chrome */
+  pre.ascii {
+    font: inherit;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 1.5rem 0;
+    color: var(--fg);
+  }
+  nav { margin: 0 0 2rem; }
+  nav a { color: var(--fg); text-decoration: none; }
+  nav a::before { content: "[ "; color: var(--muted); }
+  nav a::after { content: " ]"; color: var(--muted); }
+  nav a:hover { color: var(--link); text-decoration: underline; }
+  nav a.active { font-weight: 700; color: var(--link); }
+  nav a + a { margin-left: 1ch; }
+
+  /* Content */
+  h1 { font-size: 1.35rem; margin: 1.5rem 0 0.5rem; }
+  h2 {
+    font-size: 1.1rem; margin: 2rem 0 0.75rem; padding-bottom: 0.25rem;
+    border-bottom: 1px dashed var(--rule);
+  }
+  h2::before { content: "## "; color: var(--muted); }
+  h3 { font-size: 1rem; margin: 1.4rem 0 0.4rem; }
+  h3::before { content: "### "; color: var(--muted); font-weight: 400; }
+  h3 + p em { color: var(--muted); font-style: normal; font-size: 0.85rem; }
+  p { margin-bottom: 0.8rem; }
+  a { color: var(--link); }
+  ul, ol { margin: 0.4rem 0 1rem 3ch; }
+  li { margin-bottom: 0.35rem; }
+  hr { border: none; border-top: 1px dashed var(--rule); margin: 1.5rem 0; }
+  code {
+    background: #f0efe6; padding: 0 0.4ch; border: 1px solid var(--rule);
+    border-radius: 2px; font-size: 0.92em;
+  }
+  pre:not(.ascii) {
+    background: #f0efe6; border: 1px solid var(--rule);
+    padding: 1ch 2ch; overflow-x: auto; margin: 0.8rem 0 1.2rem;
+  }
+  pre:not(.ascii) code { background: none; border: none; padding: 0; }
+  table { border-collapse: collapse; margin: 0.8rem 0 1.2rem; }
+  th, td { border: 1px solid var(--rule); padding: 0.2rem 1ch; text-align: left; }
+  blockquote {
+    border-left: 2px solid var(--rule); padding-left: 2ch;
+    color: var(--muted); margin: 0.8rem 0;
+  }
+  .pdf-link { display: inline-block; margin: 0.4rem 0 0.8rem; }
+
+  footer {
+    margin-top: 3rem; padding-top: 1rem; border-top: 1px dashed var(--rule);
+    color: var(--muted); font-size: 0.85rem;
+  }
+
+  /* Print / PDF: switch to a clean professional look for the CV */
+  @media print {
+    @page { size: A4; margin: 1.6cm 1.8cm; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      font-size: 10pt; background: #fff;
+    }
+    .page { max-width: none; padding: 0; }
+    nav, .pdf-link, footer { display: none; }
+    pre.ascii { margin: 0 0 1rem; font-size: 8.5pt; }
+    h1 { font-size: 16pt; margin-top: 0; }
+    h2 {
+      font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.12em;
+      border-bottom: 1px solid var(--rule); break-after: avoid;
+    }
+    h2::before, h3::before { content: none; }
+    h3 { font-size: 1.02rem; break-after: avoid; break-inside: avoid; }
+    li { break-inside: avoid; }
+    a { text-decoration: none; color: var(--fg); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<pre class="ascii">+--------------------------------------------------------------------------+
+|  TOMAS XAVIER SANTOS                                  recife, br         |
+|  qa engineer | software pm                    tom.xaviersantos@gmail.com |
+|  github.com/tom-xs  -  linkedin.com/in/tomasxs                           |
++--------------------------------------------------------------------------+</pre>
+
+<nav>
+  <a{{ nav_home }} href="{{ root }}">home</a><a{{ nav_projects }} href="{{ root }}projects/">projects</a><a{{ nav_cv }} href="{{ root }}cv/">cv</a><a href="{{ root }}cv/tomas-xavier-santos-cv.pdf">cv.pdf</a><a href="https://github.com/tom-xs" target="_blank" rel="noopener">github</a><a href="https://www.linkedin.com/in/tomasxs/" target="_blank" rel="noopener">linkedin</a>
+</nav>
+
+<main>
+{{ content }}
+</main>
+
+<footer>generated from markdown &middot; github.com/tom-xs/portfolio</footer>
+
+</div>
+</body>
+</html>
