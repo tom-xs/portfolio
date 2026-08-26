@@ -1,27 +1,46 @@
 # Portfolio — Tomas Xavier Santos
 
-Personal website and CV, hosted on GitHub Pages.
+Personal site, projects and CV, hosted on GitHub Pages. Monospace-web aesthetic,
+generated from Markdown.
 
 ## How it works
 
-**`cv.md` is the single source of truth for the CV.** Edit that file, push to
-`master`, and a GitHub Action automatically rebuilds:
+**Markdown files are the single source of truth.** Edit them, push to `master`,
+and a GitHub Action rebuilds the site automatically:
 
-- `cv/index.html` — the CV as a web page (served at `/cv/`)
-- `cv/tomas-xavier-santos-cv.pdf` — a print-ready PDF generated from the same source
+| Source | Generated |
+| --- | --- |
+| `index.md` | `index.html` (landing page) |
+| `projects.md` | `projects/index.html` |
+| `cv.md` | `cv/index.html` + `cv/tomas-xavier-santos-cv.pdf` |
 
-Never edit the generated files by hand; they are overwritten on every build.
+Never edit the generated HTML/PDF by hand; they are overwritten on every build.
+
+## Adding a project
+
+Add a section to `projects.md`:
+
+```md
+## my-project
+
+What it does, why it's interesting.
+
+- tech: Python · Selenium
+- code: [github.com/tom-xs/my-project](https://github.com/tom-xs/my-project)
+```
+
+The landing page's project list is generated automatically from the
+`## headings` in `projects.md` — no other file needs to change.
 
 ## Repository layout
 
 | Path | Purpose |
 | --- | --- |
-| `cv.md` | CV content in Markdown (the only file you edit) |
-| `templates/cv-template.html` | HTML/CSS template for the web page and PDF |
+| `index.md`, `projects.md`, `cv.md` | Content (the only files you edit) |
+| `templates/site-template.html` | Shared monospace HTML shell (screen + print CSS) |
 | `build.py` | Build script: Markdown -> HTML (pandoc) -> PDF (WeasyPrint) |
-| `.github/workflows/build-cv.yml` | CI that rebuilds on every change to the CV |
-| `index.html` | Landing page |
-| `cv/` | Generated output (web page + PDF) |
+| `.github/workflows/build-cv.yml` | CI that rebuilds on every content change |
+| `.nojekyll` | Disables Jekyll so Pages serves the files as-is |
 
 ## Building locally
 
