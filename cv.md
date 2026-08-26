@@ -1,12 +1,12 @@
 ---
+title: CV — Tomas Xavier Santos
+description: CV of Tomas Xavier Santos, QA Engineer | Software PM
+page: cv
+root: ../
 name: Tomas Xavier Santos
-tagline: QA Engineer | Software PM
-email: tom.xaviersantos@gmail.com
-phone: +55 81 998975432
-location: Recife, Brazil
-linkedin: https://www.linkedin.com/in/tomasxs/
-github: https://github.com/tom-xs
 ---
+
+<p class="pdf-link">[ <a href="tomas-xavier-santos-cv.pdf" download>download pdf</a> ]</p>
 
 ## Profile
 
