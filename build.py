@@ -13,7 +13,8 @@ Notes:
   auto-generated list of the `## headings` found in projects.md.
 - The CV gets a print-only text header (name + contact) generated from
   the cv.md front matter, so the PDF is ATS-friendly while the web page
-  keeps the ASCII-art header.
+  keeps the spec-table header. Contact values are real clickable links
+  in the PDF (mailto:, tel:, https:) rendered as plain black text.
 """
 import re
 import subprocess
@@ -30,6 +31,9 @@ PAGES = {
     "projects.md": Path("projects/index.html"),
     "cv.md": Path("cv/index.html"),
 }
+
+# order of the contact fields in the PDF header
+CONTACT_ORDER = ("location", "email", "phone", "website", "linkedin", "github")
 
 
 def parse_front_matter(text):
@@ -63,12 +67,27 @@ def project_links(projects_body):
     return "<ul>\n" + "\n".join(items) + "\n</ul>"
 
 
+def contact_href(key, value):
+    """Return the clickable href for a contact field, or None."""
+    if key == "email":
+        return f"mailto:{value}"
+    if key == "phone":
+        return "tel:" + re.sub(r"[^+\d]", "", value)
+    if key in ("website", "linkedin", "github"):
+        return value if value.startswith("http") else f"https://{value}"
+    return None
+
+
 def cv_print_header(meta):
     """Plain-text name + contact header, visible in the PDF only."""
-    contact = " | ".join(
-        meta.get(k, "") for k in ("location", "email", "phone", "linkedin", "github")
-        if meta.get(k)
-    )
+    parts = []
+    for key in CONTACT_ORDER:
+        value = meta.get(key, "")
+        if not value:
+            continue
+        href = contact_href(key, value)
+        parts.append(f'<a href="{href}">{value}</a>' if href else value)
+    contact = " | ".join(parts)
     return (
         '<div class="print-only">'
         f'<h1 class="cv-name">{meta.get("name", "")}</h1>'
