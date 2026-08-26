@@ -8,8 +8,12 @@ Pages (edit the .md, never the generated .html):
     projects.md  -> projects/index.html
     cv.md        -> cv/index.html + cv/tomas-xavier-santos-cv.pdf
 
-The landing page's `{{ projects }}` marker is replaced with an
-auto-generated list of the `## headings` found in projects.md.
+Notes:
+- The landing page's `{{ projects }}` marker is replaced with an
+  auto-generated list of the `## headings` found in projects.md.
+- The CV gets a print-only text header (name + contact) generated from
+  the cv.md front matter, so the PDF is ATS-friendly while the web page
+  keeps the ASCII-art header.
 """
 import re
 import subprocess
@@ -59,6 +63,20 @@ def project_links(projects_body):
     return "<ul>\n" + "\n".join(items) + "\n</ul>"
 
 
+def cv_print_header(meta):
+    """Plain-text name + contact header, visible in the PDF only."""
+    contact = " | ".join(
+        meta.get(k, "") for k in ("location", "email", "phone", "linkedin", "github")
+        if meta.get(k)
+    )
+    return (
+        '<div class="print-only">'
+        f'<h1 class="cv-name">{meta.get("name", "")}</h1>'
+        f'<p class="cv-contact">{contact}</p>'
+        "</div>"
+    )
+
+
 def render(template, meta, content_html, extra=None):
     html = template
     for key, value in meta.items():
@@ -90,6 +108,8 @@ def main():
         extra = {}
         if source == "index.md":
             extra["projects"] = project_links(projects_body)
+        if source == "cv.md":
+            content_html = cv_print_header(meta) + content_html
         html = render(template, meta, content_html, extra)
 
         out_path = ROOT / out
