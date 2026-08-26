@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomas Xavier Santos — CV</title>
+<meta name="description" content="CV of Tomas Xavier Santos, QA Engineer | Software PM">
+<style>
+  :root {
+    --accent: #1f4e79;
+    --text: #1c1c1e;
+    --muted: #5b5b60;
+    --rule: #d8d8dc;
+    --bg: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.55;
+  }
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3rem 1.75rem 4rem;
+  }
+
+  /* Header */
+  header { border-bottom: 3px solid var(--accent); padding-bottom: 1.1rem; margin-bottom: 1.6rem; }
+  h1 { font-size: 2rem; letter-spacing: 0.01em; }
+  .tagline { font-size: 1.05rem; color: var(--accent); font-weight: 600; margin-top: 0.15rem; }
+  .contact { margin-top: 0.6rem; font-size: 0.9rem; color: var(--muted); }
+  .contact a { color: var(--muted); text-decoration: none; }
+  .contact a:hover { color: var(--accent); text-decoration: underline; }
+  .contact span + span::before, .contact a + span::before, .contact span + a::before, .contact a + a::before {
+    content: " \2022  "; color: #b9b9be;
+  }
+  .pdf-link {
+    display: inline-block; margin-top: 0.8rem; font-size: 0.85rem; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+    border: 1px solid var(--accent); border-radius: 5px; padding: 0.3rem 0.8rem;
+  }
+  .pdf-link:hover { background: var(--accent); color: #fff; }
+
+  /* Sections */
+  h2 {
+    font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.3rem; margin: 1.9rem 0 0.9rem;
+  }
+  h3 { font-size: 1.02rem; margin-top: 1.1rem; }
+  h3 + p em { color: var(--muted); font-style: normal; font-size: 0.88rem; }
+  p { font-size: 0.94rem; margin-bottom: 0.5rem; }
+  ul { margin: 0.35rem 0 0.6rem 1.15rem; }
+  li { font-size: 0.94rem; margin-bottom: 0.35rem; }
+  strong { font-weight: 600; }
+  a { color: var(--accent); }
+
+  footer { margin-top: 2.5rem; font-size: 0.8rem; color: #9a9aa0; text-align: center; }
+
+  /* Print / PDF */
+  @media print {
+    @page { size: A4; margin: 1.6cm 1.8cm; }
+    .page { max-width: none; padding: 0; }
+    body { font-size: 10pt; }
+    h1 { font-size: 17pt; }
+    .tagline { font-size: 10.5pt; }
+    .pdf-link { display: none; }
+    h2 { break-after: avoid; }
+    h3, h3 + p { break-after: avoid; break-inside: avoid; }
+    li { break-inside: avoid; }
+    a { text-decoration: none; color: var(--text); }
+    header { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Tomas Xavier Santos</h1>
+    <div class="tagline">QA Engineer | Software PM</div>
+    <div class="contact">
+      <a href="mailto:tom.xaviersantos@gmail.com">tom.xaviersantos@gmail.com</a>
+      <span>+55 81 998975432</span>
+      <span>Recife, Brazil</span>
+      <a href="https://www.linkedin.com/in/tomasxs/">LinkedIn</a>
+      <a href="https://github.com/tom-xs">GitHub</a>
+    </div>
+    <a class="pdf-link" href="tomas-xavier-santos-cv.pdf" download>Download PDF</a>
+  </header>
+
+  <main>
+<h2 id="profile">Profile</h2>
+<p>QA Software Engineer &amp; Software Project Manager with 4+ years of specialized experience in Android &amp; Web manual testing, test automation, and quality assurance. Proficient in automating processes and optimizing workflows, including AI-driven products. Reduced localization testing cycles by 90% through custom automation frameworks, and successfully delivered 30+ mobile projects for Motorola, currently managing 10+ active projects simultaneously. Proven track record of delivering high-quality software solutions in fast-paced environments.</p>
+<h2 id="experience">Experience</h2>
+<h3 id="project-manager--roundtable-studio-contractor-for-motorola-mobility">Project Manager — Roundtable Studio (Contractor for Motorola Mobility)</h3>
+<p><em>Dec 2024 – Present · Recife, Brazil</em></p>
+<ul>
+<li>Orchestrated end-to-end management of 30+ mobile projects, driving project delivery, timelines, and cross-functional collaboration between Marketing, Development, and Localization teams.</li>
+<li>Established and delivered a comprehensive training program for a team of 8 new QA engineers, incorporating onboarding documentation and conducting a week-long hands-on program for localization-related Android testing best practices.</li>
+<li>Proactively managed project risks related to software readiness and resource availability, implementing contingency plans that maintained 100% on-time delivery across all projects.</li>
+</ul>
+<h3 id="qa-engineer--projetocin-motorola">QA Engineer — Projeto/Cin Motorola</h3>
+<p><em>Jun 2022 – Nov 2024 · Recife, Brazil</em></p>
+<ul>
+<li>Spearheaded Android QA for mobile products, owning the complete testing lifecycle from planning to production release and ensuring zero critical production bugs.</li>
+<li>Developed an automated testing framework using Python and API automation to ensure translation quality for indigenous endangered languages, reducing testing time from 10+ hours to less than 1 hour (90% reduction) while eliminating human errors.</li>
+<li>Drove and took ownership of quality initiatives for AI-based products, designing specialized test strategies for ML-powered features, including accuracy validation across diverse user scenarios, edge case identification, and localization quality assurance across multiple languages.</li>
+</ul>
+<h3 id="qa-tester-intern--projetocin-motorola">QA Tester (Intern) — Projeto/Cin Motorola</h3>
+<p><em>Aug 2021 – May 2022 · Recife, Brazil</em></p>
+<ul>
+<li>Validated UI elements on Android, Desktop and Web applications across 50+ languages, verifying text truncation, right-to-left language support, character encoding, and culturally appropriate imagery to ensure compliance with Motorola’s localization standards.</li>
+<li>Conducted 20+ comprehensive localization test cycles, including sanity, regression, and exploratory testing, ensuring high-quality releases.</li>
+<li>Optimized testing strategies for responsive web content on mobile devices, significantly improving the user experience across various platforms.</li>
+</ul>
+<h2 id="education">Education</h2>
+<h3 id="bachelor-of-computer-engineering--universidade-de-pernambuco-upe">Bachelor of Computer Engineering — Universidade de Pernambuco (UPE)</h3>
+<p><em>Mar 2018 – Aug 2024</em></p>
+<ul>
+<li><strong>Thesis:</strong> “Using Computer Vision Techniques to Identify and Classify Mosquito Species” — Advisors: Byron Leite Dantas, Estanislau Baptista Lima</li>
+<li><strong>Research:</strong> Co-authored the paper “Applying Machine Learning Techniques to Traffic Crash Data on BR 101 in Pernambuco”</li>
+</ul>
+<h2 id="skills">Skills</h2>
+<ul>
+<li><strong>Mobile Testing:</strong> Android Testing, Mobile Automation, Device Testing, Responsive Design Testing</li>
+<li><strong>QA Tools &amp; Methods:</strong> Selenium, UiAutomator, JUnit, Jira, Smartsheet, Jenkins, Git, Postman, Regression Testing, Localization Testing</li>
+<li><strong>Programming:</strong> Python, JavaScript, Java, Kotlin, SQL, Bash, Go</li>
+</ul>
+<h2 id="languages">Languages</h2>
+<ul>
+<li><strong>Portuguese</strong> — Fluent</li>
+<li><strong>English</strong> — Advanced</li>
+</ul>
+  </main>
+
+  <footer>Generated automatically from cv.md</footer>
+
+</div>
+</body>
+</html>
