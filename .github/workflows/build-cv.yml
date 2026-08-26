@@ -1,0 +1,35 @@
+name: Build CV
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - cv.md
+      - build.py
+      - templates/**
+      - .github/workflows/build-cv.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0
+          python3 -m pip install weasyprint
+
+      - name: Build CV page and PDF
+        run: python3 build.py
+
+      - name: Commit built files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild CV page and PDF [skip ci]"
+          file_pattern: cv/index.html cv/*.pdf
