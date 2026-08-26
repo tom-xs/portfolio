@@ -7,9 +7,6 @@ root: ../
 
 # projects
 
-Things I've built or experimented with. More on
-[GitHub](https://github.com/tom-xs). Edit `projects.md` to add more.
-
 ## qa-atelier
 
 A personal testing atelier: an experimental workspace for practicing

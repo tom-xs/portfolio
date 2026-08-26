@@ -4,11 +4,16 @@ description: CV of Tomas Xavier Santos, QA Engineer | Software PM
 page: cv
 root: ../
 name: Tomas Xavier Santos
+email: tom.xaviersantos@gmail.com
+phone: +55 81 998975432
+location: Recife, Brazil
+linkedin: linkedin.com/in/tomasxs
+github: github.com/tom-xs
 ---
 
 <p class="pdf-link">[ <a href="tomas-xavier-santos-cv.pdf" download>download pdf</a> ]</p>
 
-## Profile
+## Summary
 
 QA Software Engineer & Software Project Manager with 4+ years of specialized experience in Android & Web manual testing, test automation, and quality assurance. Proficient in automating processes and optimizing workflows, including AI-driven products. Reduced localization testing cycles by 90% through custom automation frameworks, and successfully delivered 30+ mobile projects for Motorola, currently managing 10+ active projects simultaneously. Proven track record of delivering high-quality software solutions in fast-paced environments.
 
