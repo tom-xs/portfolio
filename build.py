@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Build the whole site from Markdown sources (single source of truth).
 
-Usage:  python3 build.py
+Usage:
+    python3 build.py
+    python3 build.py --template templates/site-template.html --output dist
+    python3 build.py --watch
 
 Pages (edit the .md, never the generated .html):
     index.md     -> index.html            (landing page)
     projects.md  -> projects/index.html
+    blog.md      -> blog/index.html
     cv.md        -> cv/index.html + cv/tomas-xavier-santos-cv.pdf
 
 Notes:
@@ -16,24 +20,34 @@ Notes:
   keeps the spec-table header. Contact values are real clickable links
   in the PDF (mailto:, tel:, https:) rendered as plain black text.
 """
+import argparse
+import logging
 import re
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-TEMPLATE = ROOT / "templates" / "site-template.html"
 PDF_NAME = "tomas-xavier-santos-cv.pdf"
 
-# source -> output page
+# source -> output page (paths are resolved against --output at build time)
 PAGES = {
     "index.md": Path("index.html"),
     "projects.md": Path("projects/index.html"),
+    "blog.md": Path("blog/index.html"),
     "cv.md": Path("cv/index.html"),
 }
 
+# nav link ids that get a `{{ nav_<id> }}` -> ' class="active"' substitution;
+# must match the `page:` front-matter value and the `{{ nav_<id> }}` markers
+# used in templates/site-template.html
+NAV_PAGES = ("home", "projects", "blog", "cv")
+
 # order of the contact fields in the PDF header
 CONTACT_ORDER = ("location", "email", "phone", "website", "linkedin", "github")
+
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+log = logging.getLogger("build")
 
 
 def parse_front_matter(text):
@@ -61,7 +75,7 @@ def md_to_html(markdown_text):
 def project_links(projects_body):
     """Extract `## heading` titles from projects.md as a linked HTML list."""
     items = []
-    for heading in re.findall(r"^## (.+)$", projects_body, flags=re.M):
+    for heading in re.findall(r"^## (.+)$", projects_body, flags=re.MULTILINE):
         slug = re.sub(r"[^a-z0-9 -]", "", heading.lower()).replace(" ", "-")
         items.append(f'<li><a href="projects/#{slug}">{heading}</a></li>')
     return "<ul>\n" + "\n".join(items) + "\n</ul>"
@@ -104,7 +118,7 @@ def render(template, meta, content_html, extra=None):
     html = html.replace("{{ pdf_name }}", PDF_NAME)
     # nav active state: {{ nav_cv }} etc. -> ' class="active"' on current page
     page = meta.get("page", "")
-    for nav in ("home", "projects", "cv"):
+    for nav in NAV_PAGES:
         html = html.replace("{{ nav_" + nav + " }}",
                             ' class="active"' if nav == page else "")
     for key, value in (extra or {}).items():
@@ -114,34 +128,130 @@ def render(template, meta, content_html, extra=None):
     return html
 
 
-def main():
-    template = TEMPLATE.read_text(encoding="utf-8")
+def build(template_path, output_dir):
+    """Run one full build pass. Raises on unrecoverable errors."""
+    try:
+        template = template_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        log.error("template not found: %s", template_path)
+        raise
 
-    projects_body = parse_front_matter(
-        (ROOT / "projects.md").read_text(encoding="utf-8"))[1]
+    try:
+        projects_body = parse_front_matter(
+            (ROOT / "projects.md").read_text(encoding="utf-8"))[1]
+    except FileNotFoundError:
+        log.error("projects.md not found (required for the project list)")
+        raise
 
     for source, out in PAGES.items():
-        meta, body = parse_front_matter(
-            (ROOT / source).read_text(encoding="utf-8"))
-        content_html = md_to_html(body)
+        source_path = ROOT / source
+        if not source_path.exists():
+            log.warning("skipping %s: file not found", source)
+            continue
+
+        meta, body = parse_front_matter(source_path.read_text(encoding="utf-8"))
+
+        try:
+            content_html = md_to_html(body)
+        except subprocess.CalledProcessError as e:
+            log.error("pandoc failed on %s: %s", source, e.stderr.strip())
+            raise
+        except FileNotFoundError:
+            log.error("pandoc not found on PATH -- install it and retry")
+            raise
+
         extra = {}
         if source == "index.md":
             extra["projects"] = project_links(projects_body)
         if source == "cv.md":
             content_html = cv_print_header(meta) + content_html
+
         html = render(template, meta, content_html, extra)
 
-        out_path = ROOT / out
+        out_path = output_dir / out
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(html, encoding="utf-8")
         print(f"built {out_path}")
 
         if source == "cv.md":
             pdf = out_path.parent / PDF_NAME
-            subprocess.run(
-                [sys.executable, "-m", "weasyprint", str(out_path), str(pdf)],
-                check=True)
+            try:
+                subprocess.run(
+                    [sys.executable, "-m", "weasyprint", str(out_path), str(pdf)],
+                    check=True, capture_output=True, text=True,
+                )
+            except subprocess.CalledProcessError as e:
+                log.error("weasyprint failed on %s: %s", out_path, e.stderr.strip())
+                raise
+            except FileNotFoundError:
+                log.error("weasyprint not installed -- `pip install weasyprint`")
+                raise
             print(f"built {pdf}")
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Build the portfolio site.")
+    parser.add_argument(
+        "--template", default=str(ROOT / "templates" / "site-template.html"),
+        help="path to the HTML template (default: templates/site-template.html)")
+    parser.add_argument(
+        "--output", default=str(ROOT),
+        help="output directory for generated files (default: repo root)")
+    parser.add_argument(
+        "--watch", action="store_true",
+        help="rebuild automatically when .md or template files change "
+             "(requires the optional `watchdog` package)")
+    return parser.parse_args()
+
+
+def watch(template_path, output_dir):
+    try:
+        from watchdog.events import FileSystemEventHandler
+        from watchdog.observers import Observer
+    except ImportError:
+        log.error("--watch requires the `watchdog` package: pip install watchdog")
+        sys.exit(1)
+
+    import time
+
+    class RebuildHandler(FileSystemEventHandler):
+        def on_modified(self, event):
+            if event.is_directory:
+                return
+            if event.src_path.endswith((".md", ".html")):
+                log.info("change detected (%s), rebuilding...", event.src_path)
+                try:
+                    build(template_path, output_dir)
+                except (OSError, subprocess.CalledProcessError):
+                    log.error("build failed, waiting for next change")
+
+    build(template_path, output_dir)
+    observer = Observer()
+    observer.schedule(RebuildHandler(), str(ROOT), recursive=True)
+    observer.start()
+    log.info("watching for changes (Ctrl+C to stop)...")
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
+
+
+def main():
+    args = parse_args()
+    template_path = Path(args.template)
+    output_dir = Path(args.output)
+
+    if args.watch:
+        watch(template_path, output_dir)
+        return
+
+    try:
+        build(template_path, output_dir)
+    except (OSError, subprocess.CalledProcessError):
+        log.error("build failed")
+        sys.exit(1)
 
 
 if __name__ == "__main__":

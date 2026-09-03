@@ -13,6 +13,16 @@
     --rule: #c9c9c4;
     --bg: #fdfdf8;
   }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: #e0e0e0;
+      --muted: #aaa;
+      --link: #64b5f6;
+      --rule: #444;
+      --bg: #121212;
+    }
+    code, pre { background: #1e1e1e; }
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
@@ -25,30 +35,37 @@
   .page { max-width: 84ch; margin: 0 auto; padding: 2rem 2ch 6rem; }
   .print-only { display: none; }
 
-  /* Header: spec-sheet table, monospace-web style */
-  table.header {
-    width: 100%;
-    margin: 1.5rem 0 1rem;
-    border-collapse: collapse;
+  .skip-link {
+    position: absolute; left: -999px; top: auto; width: 1px; height: 1px;
+    overflow: hidden;
   }
-  table.header th, table.header td {
+  .skip-link:focus {
+    position: static; width: auto; height: auto; display: inline-block;
+    padding: 0.4rem 1ch; margin: 0.5rem 0; background: var(--bg);
+    border: 1px solid var(--fg); color: var(--fg);
+  }
+
+  /* Header: spec-sheet look kept via visible borders, monospace-web style */
+  .header {
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    align-items: flex-start; gap: 1rem;
+    margin: 1.5rem 0 1rem; padding: 0.75rem 1ch;
     border: 1px solid var(--fg);
-    padding: 0.35rem 1ch;
-    vertical-align: top;
-    text-align: left;
   }
-  table.header th { font-weight: 700; font-size: 0.85rem; }
-  table.header td { font-size: 0.9rem; }
-  table.header tr td:last-child { text-align: right; }
-  table.header h1.title { margin: 0; font-size: 1.3rem; }
-  table.header .subtitle { color: var(--muted); }
-  .width-min { width: 1%; white-space: nowrap; }
-  .width-auto { width: 100%; }
+  .header-info { min-width: 0; }
+  .header .title { margin: 0; font-size: 1.3rem; }
+  .header .subtitle { color: var(--muted); }
+  .header-contacts {
+    display: grid; grid-template-columns: auto auto; gap: 0.3rem 1.5ch;
+    font-size: 0.9rem;
+  }
+  .header-contacts .contact-row { display: contents; }
+  .header-contacts .label {
+    font-weight: 700; font-size: 0.85rem; text-align: left;
+  }
   @media (max-width: 70ch) {
-    table.header { table-layout: fixed; }
-    table.header .width-min, table.header .width-auto { width: auto; }
-    table.header .width-min { white-space: normal; }
-    table.header th, table.header td { overflow-wrap: break-word; }
+    .header { flex-direction: column; }
+    .header-contacts { grid-template-columns: auto 1fr; }
   }
 
   nav { margin: 0 0 2rem; }
@@ -83,8 +100,8 @@
     padding: 1ch 2ch; overflow-x: auto; margin: 0.8rem 0 1.2rem;
   }
   pre code { background: none; border: none; padding: 0; }
-  table:not(.header) { border-collapse: collapse; margin: 0.8rem 0 1.2rem; }
-  table:not(.header) th, table:not(.header) td {
+  table { border-collapse: collapse; margin: 0.8rem 0 1.2rem; }
+  table th, table td {
     border: 1px solid var(--rule); padding: 0.2rem 1ch; text-align: left;
   }
   blockquote {
@@ -106,7 +123,8 @@
       font-size: 10.5pt; line-height: 1.4; color: #000; background: #fff;
     }
     .page { max-width: none; padding: 0; }
-    nav, table.header, .pdf-link, footer { display: none; }
+    .skip-link { display: none; }
+    nav, .header, .pdf-link, footer { display: none; }
     .print-only { display: block; margin-bottom: 12pt; }
     .print-only h1.cv-name {
       font-size: 20pt; font-weight: 700; margin: 0 0 2pt; letter-spacing: 0.02em;
@@ -130,34 +148,27 @@
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to content</a>
 <div class="page">
 
-<table class="header">
-  <tr>
-    <td colspan="2" rowspan="2" class="width-auto">
-      <h1 class="title">Tomas Xavier Santos</h1>
-      <span class="subtitle">QA Engineer &middot; Software PM</span>
-    </td>
-    <th>Location</th>
-    <td class="width-min">Recife, BR</td>
-  </tr>
-  <tr>
-    <th>Email</th>
-    <td class="width-min"><a href="mailto:tom.xaviersantos@gmail.com">tom.xaviersantos@gmail.com</a></td>
-  </tr>
-  <tr>
-    <th class="width-min">GitHub</th>
-    <td class="width-auto"><a href="https://github.com/tom-xs">github.com/tom-xs</a></td>
-    <th class="width-min">LinkedIn</th>
-    <td><a href="https://www.linkedin.com/in/tomasxs/">linkedin.com/in/tomasxs</a></td>
-  </tr>
-</table>
+<div class="header">
+  <div class="header-info">
+    <h1 class="title">Tomas Xavier Santos</h1>
+    <span class="subtitle">QA Engineer &middot; Software PM</span>
+  </div>
+  <div class="header-contacts">
+    <div class="contact-row"><span class="label">Location</span><span>Recife, BR</span></div>
+    <div class="contact-row"><span class="label">Email</span><span><a href="mailto:tom.xaviersantos@gmail.com">tom.xaviersantos@gmail.com</a></span></div>
+    <div class="contact-row"><span class="label">GitHub</span><span><a href="https://github.com/tom-xs">github.com/tom-xs</a></span></div>
+    <div class="contact-row"><span class="label">LinkedIn</span><span><a href="https://www.linkedin.com/in/tomasxs/">linkedin.com/in/tomasxs</a></span></div>
+  </div>
+</div>
 
-<nav>
-  <a href="../">home</a><a href="../projects/">projects</a><a class="active" href="../cv/">cv</a><a href="https://github.com/tom-xs" target="_blank" rel="noopener">github</a><a href="https://www.linkedin.com/in/tomasxs/" target="_blank" rel="noopener">linkedin</a>
+<nav aria-label="Primary navigation">
+  <a href="../">home</a><a href="../projects/">projects</a><a href="../blog/">blog</a><a class="active" href="../cv/">cv</a><a href="https://github.com/tom-xs" target="_blank" rel="noopener">github</a><a href="https://www.linkedin.com/in/tomasxs/" target="_blank" rel="noopener">linkedin</a>
 </nav>
 
-<main>
+<main id="main-content">
 <div class="print-only"><h1 class="cv-name">Tomas Xavier Santos</h1><p class="cv-contact">Recife, Brazil | <a href="mailto:tom.xaviersantos@gmail.com">tom.xaviersantos@gmail.com</a> | <a href="tel:+5581998975432">+55 81 998975432</a> | <a href="https://tom-xs.github.io/portfolio">tom-xs.github.io/portfolio</a> | <a href="https://linkedin.com/in/tomasxs">linkedin.com/in/tomasxs</a> | <a href="https://github.com/tom-xs">github.com/tom-xs</a></p></div><p class="pdf-link">
 [ <a href="tomas-xavier-santos-cv.pdf" download>download pdf</a> ]
 </p>
