@@ -33,6 +33,25 @@
     line-height: 1.5;
   }
   .page { max-width: 84ch; margin: 0 auto; padding: 2rem 2ch 6rem; }
+  /* Sticky footer (screen only -- WeasyPrint's flexbox support is too
+     limited for print): body always fills the viewport so the background
+     paints to the bottom and the footer stays down on short pages.
+     .page needs an explicit width: as a flex item with auto margins it
+     would otherwise size to fit-content (narrower than 84ch on short
+     pages). */
+  @media screen {
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+    .page {
+      width: 100%;
+      flex: 1; display: flex; flex-direction: column;
+    }
+    main { flex-grow: 1; }
+  }
   .print-only { display: none; }
 
   .skip-link {
@@ -165,14 +184,14 @@
 </div>
 
 <nav aria-label="Primary navigation">
-  <a href="../">home</a><a href="../projects/">projects</a><a class="active" href="../blog/">blog</a><a href="../cv/">cv</a><a href="https://github.com/tom-xs" target="_blank" rel="noopener">github</a><a href="https://www.linkedin.com/in/tomasxs/" target="_blank" rel="noopener">linkedin</a>
+  <a href="../">home</a><a href="../projects/">projects</a><a class="active" href="../blog/">blog</a><a href="../cv/">cv</a>
 </nav>
 
 <main id="main-content">
 <h1 id="blog">blog</h1>
-<h2 id="welcome-to-my-blog">Welcome to my blog</h2>
-<p>This is a placeholder post. More notes on QA engineering, test
-automation, and software project management are coming soon.</p>
+<ul>
+<li><a href="welcome-to-my-blog/">Welcome to my blog</a> — 2026-09-03</li>
+</ul>
 
 </main>
 

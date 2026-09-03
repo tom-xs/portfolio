@@ -7,14 +7,19 @@ Usage:
     python3 build.py --watch
 
 Pages (edit the .md, never the generated .html):
-    index.md     -> index.html            (landing page)
-    projects.md  -> projects/index.html
-    blog.md      -> blog/index.html
-    cv.md        -> cv/index.html + cv/tomas-xavier-santos-cv.pdf
+    index.md       -> index.html            (landing page)
+    projects.md    -> projects/index.html
+    blog.md        -> blog/index.html       (auto-generated post index)
+    posts/*.md     -> blog/<slug>/index.html
+    cv.md          -> cv/index.html + cv/tomas-xavier-santos-cv.pdf
 
 Notes:
 - The landing page's `{{ projects }}` marker is replaced with an
   auto-generated list of the `## headings` found in projects.md.
+- Each file in posts/ is one blog post; the filename (without .md) is the
+  URL slug, and `title:` / `date:` front matter is required. The blog
+  index's `{{ posts }}` marker is replaced with an auto-generated list of
+  linked post titles + dates, newest first.
 - The CV gets a print-only text header (name + contact) generated from
   the cv.md front matter, so the PDF is ATS-friendly while the web page
   keeps the spec-table header. Contact values are real clickable links
@@ -45,6 +50,9 @@ NAV_PAGES = ("home", "projects", "blog", "cv")
 
 # order of the contact fields in the PDF header
 CONTACT_ORDER = ("location", "email", "phone", "website", "linkedin", "github")
+
+# one file per blog post; filename stem becomes the URL slug
+POSTS_DIR = ROOT / "posts"
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 log = logging.getLogger("build")
@@ -78,6 +86,40 @@ def project_links(projects_body):
     for heading in re.findall(r"^## (.+)$", projects_body, flags=re.MULTILINE):
         slug = re.sub(r"[^a-z0-9 -]", "", heading.lower()).replace(" ", "-")
         items.append(f'<li><a href="projects/#{slug}">{heading}</a></li>')
+    return "<ul>\n" + "\n".join(items) + "\n</ul>"
+
+
+def read_posts():
+    """Parse every posts/*.md file into (slug, meta, body), newest first.
+
+    Raises ValueError if a post is missing required `title`/`date`.
+    """
+    posts = []
+    if not POSTS_DIR.is_dir():
+        return posts
+    for path in sorted(POSTS_DIR.glob("*.md")):
+        meta, body = parse_front_matter(path.read_text(encoding="utf-8"))
+        for key in ("title", "date"):
+            if not meta.get(key):
+                raise ValueError(f"{path.name}: missing required `{key}:` "
+                                 "front matter")
+        posts.append((path.stem, meta, body))
+    # ISO dates sort lexicographically; newest first
+    posts.sort(key=lambda p: p[1]["date"], reverse=True)
+    return posts
+
+
+def post_index(posts):
+    """Blog index fragment: linked post titles + posted dates.
+
+    Links are relative to blog/ (where the index page lives).
+    """
+    if not posts:
+        return "<p>no posts yet.</p>"
+    items = [
+        f'<li><a href="{slug}/">{meta["title"]}</a> — {meta["date"]}</li>'
+        for slug, meta, _ in posts
+    ]
     return "<ul>\n" + "\n".join(items) + "\n</ul>"
 
 
@@ -143,6 +185,25 @@ def build(template_path, output_dir):
         log.error("projects.md not found (required for the project list)")
         raise
 
+    try:
+        posts = read_posts()
+    except ValueError as e:
+        log.error("%s", e)
+        raise
+
+    # individual blog post pages: posts/<slug>.md -> blog/<slug>/index.html
+    for slug, meta, body in posts:
+        try:
+            post_html = md_to_html(body)
+        except subprocess.CalledProcessError as e:
+            log.error("pandoc failed on posts/%s.md: %s", slug, e.stderr.strip())
+            raise
+        html = render(template, meta, post_html)
+        post_out = output_dir / "blog" / slug / "index.html"
+        post_out.parent.mkdir(parents=True, exist_ok=True)
+        post_out.write_text(html, encoding="utf-8")
+        print(f"built {post_out}")
+
     for source, out in PAGES.items():
         source_path = ROOT / source
         if not source_path.exists():
@@ -163,6 +224,8 @@ def build(template_path, output_dir):
         extra = {}
         if source == "index.md":
             extra["projects"] = project_links(projects_body)
+        if source == "blog.md":
+            extra["posts"] = post_index(posts)
         if source == "cv.md":
             content_html = cv_print_header(meta) + content_html
 

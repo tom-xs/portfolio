@@ -7,7 +7,7 @@ name: Tomas Xavier Santos
 email: tom.xaviersantos@gmail.com
 phone: +55 81 998975432
 location: Recife, Brazil
-website: tom-xs.github.io/portfolio
+website: tom-xs.me
 linkedin: linkedin.com/in/tomasxs
 github: github.com/tom-xs
 ---
