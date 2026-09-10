@@ -143,11 +143,15 @@ def cv_print_header(meta):
             continue
         href = contact_href(key, value)
         parts.append(f'<a href="{href}">{value}</a>' if href else value)
-    contact = " | ".join(parts)
+    contact = " \u00b7 ".join(parts)  # kami-style middot separator
+    role = meta.get("role", "")
+    role_html = f'<p class="cv-role">{role}</p>' if role else ""
     return (
         '<div class="print-only">'
         f'<h1 class="cv-name">{meta.get("name", "")}</h1>'
-        f'<p class="cv-contact">{contact}</p>'
+        "<div>" + role_html
+        + f'<p class="cv-contact">{contact}</p>'
+        + "</div>"
         "</div>"
     )
 

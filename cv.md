@@ -4,6 +4,7 @@ description: CV of Tomas Xavier Santos, QA Engineer | Software PM
 page: cv
 root: ../
 name: Tomas Xavier Santos
+role: QA Engineer · Software PM
 email: tom.xaviersantos@gmail.com
 phone: +55 81 998975432
 location: Recife, Brazil
@@ -16,30 +17,27 @@ github: github.com/tom-xs
 
 ## Summary
 
-QA Software Engineer & Software Project Manager with 4+ years of specialized experience in Android & Web manual testing, test automation, and quality assurance. Proficient in automating processes and optimizing workflows, including AI-driven products. Reduced localization testing cycles by 90% through custom automation frameworks, and successfully delivered 30+ mobile projects for Motorola, currently managing 10+ active projects simultaneously. Proven track record of delivering high-quality software solutions in fast-paced environments.
+QA Engineer & Software Project Manager with 4+ years of experience across Android, web, and IoT testing, test automation, and AI/ML quality assurance. Built a Python + API automation framework that reduced localization testing by 90%, delivered 30+ mobile projects for Motorola, and currently manages 10+ active projects. Skilled in Selenium, Cypress, UiAutomator, and full SDLC release validation.
 
 ## Experience
 
 ### Project Manager — Roundtable Studio (Contractor for Motorola Mobility)
 *Dec 2024 – Present · Recife, Brazil*
 
-- Orchestrated end-to-end management of 30+ mobile projects, driving project delivery, timelines, and cross-functional collaboration between Marketing, Development, and Localization teams.
-- Established and delivered a comprehensive training program for a team of 8 new QA engineers, incorporating onboarding documentation and conducting a week-long hands-on program for localization-related Android testing best practices.
-- Proactively managed project risks related to software readiness and resource availability, implementing contingency plans that maintained 100% on-time delivery across all projects.
+- Managed end-to-end delivery of 30+ mobile projects for Motorola, coordinating cross-functional teams (Marketing, Development, Localization) and maintaining 100% on-time delivery.
+- Built a hands-on onboarding program for 8 new QA engineers, standardizing localization and Android testing practices and accelerating team ramp-up.
+- Drove risk management for software readiness and resource planning, implementing contingency plans that kept all projects on schedule.
 
 ### QA Engineer — Projeto/Cin Motorola
 *Jun 2022 – Nov 2024 · Recife, Brazil*
 
-- Spearheaded Android QA for mobile products, owning the complete testing lifecycle from planning to production release and ensuring zero critical production bugs.
-- Developed an automated testing framework using Python and API automation to ensure translation quality for indigenous endangered languages, reducing testing time from 10+ hours to less than 1 hour (90% reduction) while eliminating human errors.
-- Drove and took ownership of quality initiatives for AI-based products, designing specialized test strategies for ML-powered features, including accuracy validation across diverse user scenarios, edge case identification, and localization quality assurance across multiple languages.
-
-### QA Tester (Intern) — Projeto/Cin Motorola
-*Aug 2021 – May 2022 · Recife, Brazil*
-
-- Validated UI elements on Android, Desktop and Web applications across 50+ languages, verifying text truncation, right-to-left language support, character encoding, and culturally appropriate imagery to ensure compliance with Motorola's localization standards.
-- Conducted 20+ comprehensive localization test cycles, including sanity, regression, and exploratory testing, ensuring high-quality releases.
-- Optimized testing strategies for responsive web content on mobile devices, significantly improving the user experience across various platforms.
+- Owned Android QA for Motorola mobile products across the full SDLC — test planning, automation, and release sign-off — with zero critical production defects.
+- Developed a Python + API automation framework for translation quality of indigenous endangered languages, cutting localization testing from 10+ hours to under 1 hour (90% reduction) and removing manual errors.
+- Designed test strategies for AI/ML powered features, including model accuracy validation, edge case detection, bias and hallucination checks, and cross language evaluation, ensuring reliable releases of generative AI and computer vision capabilities.
+- Validated UI/UX across Android, Desktop, and Web in 50+ languages, covering RTL, truncation, encoding, and culturally appropriate assets to meet global release standards.
+- Executed 20+ localization regression and sanity test cycles, supporting high-quality global launches.
+- Built and maintained Selenium and Cypress automation suites for responsive web products, reducing regression effort and catching release-blocking issues before deployment.
+- Automated IoT validation for smartwatches and true wireless earbuds, covering firmware OTA, sensor accuracy, Bluetooth pairing, and companion mobile app integration for stable user experiences.
 
 ## Education
 
@@ -51,9 +49,11 @@ QA Software Engineer & Software Project Manager with 4+ years of specialized exp
 
 ## Skills
 
-- **Mobile Testing:** Android Testing, Mobile Automation, Device Testing, Responsive Design Testing
-- **QA Tools & Methods:** Selenium, UiAutomator, JUnit, Jira, Smartsheet, Jenkins, Git, Postman, Regression Testing, Localization Testing
+- **Test Automation:** Selenium, Cypress, UiAutomator, Appium, JUnit, Espresso, API automation, mobile automation, web automation, automated IoT testing
+- **Testing Domains:** Android testing, localization & RTL testing, regression testing, wearables & IoT testing, responsive design testing, AI/ML model validation
+- **Tools & Platforms:** Jira, Jenkins, Git, Postman, Smartsheet
 - **Programming:** Python, JavaScript, Java, Kotlin, SQL, Bash, Go
+- **Project Management:** Agile/Scrum, cross-functional coordination, risk management, onboarding & training, multi-project delivery
 
 ## Languages
 

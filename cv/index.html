@@ -134,35 +134,59 @@
     color: var(--muted); font-size: 0.85rem;
   }
 
-  /* Print / PDF: ATS-friendly, single column, plain black text */
+  /* Print / PDF: Kami resume style (github.com/tw93/kami) -- parchment
+     background, serif type, ink-blue accents, thin light rules.
+     Single column with real selectable text, so it stays ATS-friendly. */
   @media print {
-    @page { size: A4; margin: 1.8cm 2cm; }
+    @page { size: A4; margin: 10mm 12mm; background: #f5f4ed; }
     body {
-      font-family: Calibri, Carlito, "Segoe UI", Arial, Helvetica, sans-serif;
-      font-size: 10.5pt; line-height: 1.4; color: #000; background: #fff;
+      font-family: Charter, "Charis SIL", Georgia, Palatino,
+                   "Times New Roman", serif;
+      font-size: 9pt; line-height: 1.38; color: #141413; background: #f5f4ed;
+      widows: 3; orphans: 3;
     }
     .page { max-width: none; padding: 0; }
     .skip-link { display: none; }
     nav, .header, .pdf-link, footer { display: none; }
-    .print-only { display: block; margin-bottom: 12pt; }
-    .print-only h1.cv-name {
-      font-size: 20pt; font-weight: 700; margin: 0 0 2pt; letter-spacing: 0.02em;
+
+    /* Kami header: large serif name left, role + contact right */
+    .print-only {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding-bottom: 2mm; margin-bottom: 3.5mm;
+      border-bottom: 0.6pt solid #e8e6dc;
     }
-    .print-only p.cv-contact { font-size: 9.5pt; margin: 0; }
+    .print-only h1.cv-name {
+      font-size: 22pt; font-weight: 500; letter-spacing: -0.2pt;
+      line-height: 1; margin: 0;
+    }
+    .print-only .cv-role {
+      color: #1B365D; font-size: 10.5pt; font-weight: 500;
+      margin: 0 0 1mm; text-align: right;
+    }
+    .print-only p.cv-contact {
+      font-size: 9pt; color: #6b6a64; line-height: 1.5;
+      margin: 0; text-align: right;
+    }
+    .print-only .cv-contact a { color: #3d3d3a; }
+
     h2 {
-      font-size: 11pt; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.06em; border-bottom: 1px solid #000;
-      padding-bottom: 2pt; margin: 12pt 0 6pt; break-after: avoid;
+      font-size: 11.5pt; font-weight: 500; color: #141413;
+      border-bottom: 0.5pt solid #e8e6dc; padding-bottom: 0.6mm;
+      margin: 3.5mm 0 1.2mm; break-after: avoid;
     }
     h2::before, h3::before { content: none; }
-    h3 { font-size: 10.5pt; font-weight: 700; margin: 8pt 0 0; break-after: avoid; break-inside: avoid; }
+    h3 {
+      font-size: 10pt; font-weight: 500; color: #141413;
+      margin: 1.8mm 0 0.5mm; break-after: avoid; break-inside: avoid;
+    }
     h3 + p { break-after: avoid; }
-    h3 + p em { color: #000; font-style: italic; font-size: 9.5pt; }
-    p { margin: 0 0 4pt; }
-    ul, ol { margin: 2pt 0 6pt 16pt; }
-    li { margin-bottom: 2pt; break-inside: avoid; }
-    a { color: #000; text-decoration: none; }
-    hr { border: none; border-top: 1px solid #000; margin: 8pt 0; }
+    h3 + p em { color: #6b6a64; font-style: normal; font-size: 9pt; }
+    p { margin: 0 0 0.6mm; }
+    strong { color: #1B365D; font-weight: 600; }
+    ul, ol { margin: 0.6mm 0 1.4mm 5mm; }
+    li { margin-bottom: 0.4mm; break-inside: avoid; }
+    a { color: #1B365D; text-decoration: none; }
+    hr { border: none; border-top: 0.5pt solid #e8e6dc; margin: 3mm 0; }
   }
 </style>
 </head>
@@ -188,67 +212,57 @@
 </nav>
 
 <main id="main-content">
-<div class="print-only"><h1 class="cv-name">Tomas Xavier Santos</h1><p class="cv-contact">Recife, Brazil | <a href="mailto:tom.xaviersantos@gmail.com">tom.xaviersantos@gmail.com</a> | <a href="tel:+5581998975432">+55 81 998975432</a> | <a href="https://tom-xs.me">tom-xs.me</a> | <a href="https://linkedin.com/in/tomasxs">linkedin.com/in/tomasxs</a> | <a href="https://github.com/tom-xs">github.com/tom-xs</a></p></div><p class="pdf-link">
+<div class="print-only"><h1 class="cv-name">Tomas Xavier Santos</h1><div><p class="cv-role">QA Engineer · Software PM</p><p class="cv-contact">Recife, Brazil · <a href="mailto:tom.xaviersantos@gmail.com">tom.xaviersantos@gmail.com</a> · <a href="tel:+5581998975432">+55 81 998975432</a> · <a href="https://tom-xs.me">tom-xs.me</a> · <a href="https://linkedin.com/in/tomasxs">linkedin.com/in/tomasxs</a> · <a href="https://github.com/tom-xs">github.com/tom-xs</a></p></div></div><p class="pdf-link">
 [ <a href="tomas-xavier-santos-cv.pdf" download>download pdf</a> ]
 </p>
 <h2 id="summary">Summary</h2>
-<p>QA Software Engineer &amp; Software Project Manager with 4+ years of
-specialized experience in Android &amp; Web manual testing, test
-automation, and quality assurance. Proficient in automating processes
-and optimizing workflows, including AI-driven products. Reduced
-localization testing cycles by 90% through custom automation frameworks,
-and successfully delivered 30+ mobile projects for Motorola, currently
-managing 10+ active projects simultaneously. Proven track record of
-delivering high-quality software solutions in fast-paced
-environments.</p>
+<p>QA Engineer &amp; Software Project Manager with 4+ years of
+experience across Android, web, and IoT testing, test automation, and
+AI/ML quality assurance. Built a Python + API automation framework that
+reduced localization testing by 90%, delivered 30+ mobile projects for
+Motorola, and currently manages 10+ active projects. Skilled in
+Selenium, Cypress, UiAutomator, and full SDLC release validation.</p>
 <h2 id="experience">Experience</h2>
 <h3
 id="project-manager-roundtable-studio-contractor-for-motorola-mobility">Project
 Manager — Roundtable Studio (Contractor for Motorola Mobility)</h3>
 <p><em>Dec 2024 – Present · Recife, Brazil</em></p>
 <ul>
-<li>Orchestrated end-to-end management of 30+ mobile projects, driving
-project delivery, timelines, and cross-functional collaboration between
-Marketing, Development, and Localization teams.</li>
-<li>Established and delivered a comprehensive training program for a
-team of 8 new QA engineers, incorporating onboarding documentation and
-conducting a week-long hands-on program for localization-related Android
-testing best practices.</li>
-<li>Proactively managed project risks related to software readiness and
-resource availability, implementing contingency plans that maintained
-100% on-time delivery across all projects.</li>
+<li>Managed end-to-end delivery of 30+ mobile projects for Motorola,
+coordinating cross-functional teams (Marketing, Development,
+Localization) and maintaining 100% on-time delivery.</li>
+<li>Built a hands-on onboarding program for 8 new QA engineers,
+standardizing localization and Android testing practices and
+accelerating team ramp-up.</li>
+<li>Drove risk management for software readiness and resource planning,
+implementing contingency plans that kept all projects on schedule.</li>
 </ul>
 <h3 id="qa-engineer-projetocin-motorola">QA Engineer — Projeto/Cin
 Motorola</h3>
 <p><em>Jun 2022 – Nov 2024 · Recife, Brazil</em></p>
 <ul>
-<li>Spearheaded Android QA for mobile products, owning the complete
-testing lifecycle from planning to production release and ensuring zero
-critical production bugs.</li>
-<li>Developed an automated testing framework using Python and API
-automation to ensure translation quality for indigenous endangered
-languages, reducing testing time from 10+ hours to less than 1 hour (90%
-reduction) while eliminating human errors.</li>
-<li>Drove and took ownership of quality initiatives for AI-based
-products, designing specialized test strategies for ML-powered features,
-including accuracy validation across diverse user scenarios, edge case
-identification, and localization quality assurance across multiple
-languages.</li>
-</ul>
-<h3 id="qa-tester-intern-projetocin-motorola">QA Tester (Intern) —
-Projeto/Cin Motorola</h3>
-<p><em>Aug 2021 – May 2022 · Recife, Brazil</em></p>
-<ul>
-<li>Validated UI elements on Android, Desktop and Web applications
-across 50+ languages, verifying text truncation, right-to-left language
-support, character encoding, and culturally appropriate imagery to
-ensure compliance with Motorola’s localization standards.</li>
-<li>Conducted 20+ comprehensive localization test cycles, including
-sanity, regression, and exploratory testing, ensuring high-quality
-releases.</li>
-<li>Optimized testing strategies for responsive web content on mobile
-devices, significantly improving the user experience across various
-platforms.</li>
+<li>Owned Android QA for Motorola mobile products across the full SDLC —
+test planning, automation, and release sign-off — with zero critical
+production defects.</li>
+<li>Developed a Python + API automation framework for translation
+quality of indigenous endangered languages, cutting localization testing
+from 10+ hours to under 1 hour (90% reduction) and removing manual
+errors.</li>
+<li>Designed test strategies for AI/ML powered features, including model
+accuracy validation, edge case detection, bias and hallucination checks,
+and cross language evaluation, ensuring reliable releases of generative
+AI and computer vision capabilities.</li>
+<li>Validated UI/UX across Android, Desktop, and Web in 50+ languages,
+covering RTL, truncation, encoding, and culturally appropriate assets to
+meet global release standards.</li>
+<li>Executed 20+ localization regression and sanity test cycles,
+supporting high-quality global launches.</li>
+<li>Built and maintained Selenium and Cypress automation suites for
+responsive web products, reducing regression effort and catching
+release-blocking issues before deployment.</li>
+<li>Automated IoT validation for smartwatches and true wireless earbuds,
+covering firmware OTA, sensor accuracy, Bluetooth pairing, and companion
+mobile app integration for stable user experiences.</li>
 </ul>
 <h2 id="education">Education</h2>
 <h3
@@ -264,13 +278,19 @@ Learning Techniques to Traffic Crash Data on BR 101 in Pernambuco”</li>
 </ul>
 <h2 id="skills">Skills</h2>
 <ul>
-<li><strong>Mobile Testing:</strong> Android Testing, Mobile Automation,
-Device Testing, Responsive Design Testing</li>
-<li><strong>QA Tools &amp; Methods:</strong> Selenium, UiAutomator,
-JUnit, Jira, Smartsheet, Jenkins, Git, Postman, Regression Testing,
-Localization Testing</li>
+<li><strong>Test Automation:</strong> Selenium, Cypress, UiAutomator,
+Appium, JUnit, Espresso, API automation, mobile automation, web
+automation, automated IoT testing</li>
+<li><strong>Testing Domains:</strong> Android testing, localization
+&amp; RTL testing, regression testing, wearables &amp; IoT testing,
+responsive design testing, AI/ML model validation</li>
+<li><strong>Tools &amp; Platforms:</strong> Jira, Jenkins, Git, Postman,
+Smartsheet</li>
 <li><strong>Programming:</strong> Python, JavaScript, Java, Kotlin, SQL,
 Bash, Go</li>
+<li><strong>Project Management:</strong> Agile/Scrum, cross-functional
+coordination, risk management, onboarding &amp; training, multi-project
+delivery</li>
 </ul>
 <h2 id="languages">Languages</h2>
 <ul>
