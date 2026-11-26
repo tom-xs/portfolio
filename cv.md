@@ -1,10 +1,10 @@
 ---
 title: CV — Tomas Xavier Santos
-description: CV of Tomas Xavier Santos, QA Engineer | Software PM
+description: CV of Tomas Xavier Santos, QA Engineer
 page: cv
 root: ../
 name: Tomas Xavier Santos
-role: QA Engineer · Software PM
+role: QA Engineer
 email: tom.xaviersantos@gmail.com
 phone: +55 81 998975432
 location: Recife, Brazil
@@ -17,14 +17,19 @@ github: github.com/tom-xs
 
 ## Summary
 
-QA Engineer & Software Project Manager with 4+ years of experience across Android, web, and IoT testing, test automation, and AI/ML quality assurance. Built a Python + API automation framework that reduced localization testing by 90%, delivered 30+ mobile projects for Motorola, and currently manages 10+ active projects. Skilled in Selenium, Cypress, UiAutomator, and full SDLC release validation.
+QA Engineer with 5+ years of experience across Android, web, IoT, test automation, AI/ML quality assurance, and full SDLC release validation. Built a Python + API automation framework that cut localization testing by 90%, delivered 50+ mobile projects for Motorola, and led delivery as a Project Manager across cross-functional teams. Skilled in Selenium, Cypress, UiAutomator, and release sign-off for safety-critical and global-scale products.
 
 ## Experience
 
-### Project Manager — Roundtable Studio (Contractor for Motorola Mobility)
-*Dec 2024 – Present · Recife, Brazil*
+### QA Engineer — Komatsu
+*Dec 2026 – Present · Recife, Brazil*
 
-- Managed end-to-end delivery of 30+ mobile projects for Motorola, coordinating cross-functional teams (Marketing, Development, Localization) and maintaining 100% on-time delivery.
+- 
+
+### Project Manager — Roundtable Studio (Contractor for Motorola Mobility)
+*Dec 2024 – Nov 2026 · Recife, Brazil*
+
+- Managed end-to-end delivery of 50+ mobile projects for Motorola, coordinating cross-functional teams (Marketing, Development, Localization) and maintaining 100% on-time delivery.
 - Built a hands-on onboarding program for 8 new QA engineers, standardizing localization and Android testing practices and accelerating team ramp-up.
 - Drove risk management for software readiness and resource planning, implementing contingency plans that kept all projects on schedule.
 
@@ -49,8 +54,8 @@ QA Engineer & Software Project Manager with 4+ years of experience across Androi
 
 ## Skills
 
-- **Test Automation:** Selenium, Cypress, UiAutomator, Appium, JUnit, Espresso, API automation, mobile automation, web automation, automated IoT testing
-- **Testing Domains:** Android testing, localization & RTL testing, regression testing, wearables & IoT testing, responsive design testing, AI/ML model validation
+- **Test Automation:** Selenium, Cypress, UiAutomator, Appium, JUnit, API automation, mobile automation, web automation, automated IoT testing
+- **Testing Domains:** Android testing, localization testing, regression testing, wearables & IoT testing, responsive design testing, AI/ML model validation
 - **Tools & Platforms:** Jira, Jenkins, Git, Postman, Smartsheet
 - **Programming:** Python, JavaScript, Java, Kotlin, SQL, Bash, Go
 - **Project Management:** Agile/Scrum, cross-functional coordination, risk management, onboarding & training, multi-project delivery

@@ -1,16 +1,15 @@
 ---
 title: Tomas Xavier Santos
-description: QA Engineer & Software PM — personal site, projects and CV
+description: QA Engineer — personal site, projects and CV
 page: home
 root: 
 ---
 
 # hello, i'm tomas.
 
-QA Software Engineer & Software Project Manager with 4+ years of experience
-in Android & Web testing, test automation, and quality assurance. I cut
-localization testing cycles by 90% with custom automation frameworks and
-have delivered 30+ mobile projects for Motorola.
+QA Software Engineer with 5+ years of experience in Android, web, and
+IoT testing. I build custom automation frameworks, validate AI/ML features,
+and have shipped 50+ projects.
 
 ## projects
 
@@ -20,7 +19,8 @@ have delivered 30+ mobile projects for Motorola.
 
 ## currently
 
-- **Project Manager** — Roundtable Studio (contractor for Motorola), Dec 2024 – Present
+- **QA Engineer** — Komatsu, Dec 2026 – Present
+- Previously **Project Manager** — Roundtable Studio (contractor for Motorola), Dec 2024 – Nov 2026
 - Previously **QA Engineer** @ Projeto/Cin Motorola (2022–2024)
 - B.Sc. Computer Engineering — Universidade de Pernambuco (2024)
 
