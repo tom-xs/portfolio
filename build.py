@@ -136,23 +136,27 @@ def contact_href(key, value):
 
 def cv_print_header(meta):
     """Plain-text name + contact header, visible in the PDF only."""
-    parts = []
+    # each item is its own span so the print CSS can space them evenly and
+    # keep each one (e.g. a LinkedIn URL) on a single line
+    items = []
     for key in CONTACT_ORDER:
         value = meta.get(key, "")
         if not value:
             continue
         href = contact_href(key, value)
-        parts.append(f'<a href="{href}">{value}</a>' if href else value)
-    contact = " \u00b7 ".join(parts)  # kami-style middot separator
+        inner = f'<a href="{href}">{value}</a>' if href else value
+        items.append(f'<span class="cv-item">{inner}</span>')
+    contact = "".join(items)
     role = meta.get("role", "")
     role_html = f'<p class="cv-role">{role}</p>' if role else ""
     return (
         '<div class="print-only">'
+        '<div class="cv-head">'
         f'<h1 class="cv-name">{meta.get("name", "")}</h1>'
-        "<div>" + role_html
+        + role_html
+        + "</div>"
         + f'<p class="cv-contact">{contact}</p>'
         + "</div>"
-        "</div>"
     )
 
 
