@@ -24,8 +24,6 @@ QA Engineer with 5+ years of experience across Android, web, IoT, test automatio
 ### QA Engineer — Komatsu
 *Dec 2026 – Present · Recife, Brazil*
 
-- 
-
 ### Project Manager — Roundtable Studio (Contractor for Motorola Mobility)
 *Dec 2024 – Nov 2026 · Recife, Brazil*
 
